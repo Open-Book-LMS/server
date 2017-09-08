@@ -10,4 +10,9 @@ router.post('/register', (req, res, next) => {
 
 });
 
+//Login route for all users
+router.put('/login', (req, res, next) => {
+
+});
+
 module.exports = router;
