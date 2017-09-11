@@ -17,6 +17,7 @@
     "jsonwebtoken": "^8.0.0",
     "knex": "^0.13.0",
     "monk": "^6.0.3",
+    "monk-middleware-debug": "^0.2.0",
     "morgan": "~1.8.1",
     "nodemon": "^1.12.0",
     "pg": "^7.3.0",

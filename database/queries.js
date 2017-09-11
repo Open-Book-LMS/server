@@ -9,10 +9,11 @@ module.exports = {
   },
   getCourseNavigationbyId: (id) => {
     let course_structure = monk.get('course_structure');
-    return course_structure.findOne({course_id: id});
+    return course_structure.findOne({course_id: Number(id)});
   },
-  getCourseItembyId: (id) => {
+  getCourseItembyId: (assignmentId) => {
+    console.log(assignmentId);
     let assignments = monk.get('assignments');
-    return assignments.findAll({course_id: id});
+    return assignments.findOne({id: Number(assignmentId)});
   }
 }

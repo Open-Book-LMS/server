@@ -6,10 +6,15 @@ router.get('/:id/navigation', (req, res) => {
   let courseId = req.params.id;
   queries.getCourseNavigationbyId(courseId)
   .then(navigation => {
-    res.send(navigation);
-    // res.send(navigation.navigation.map(assignment=>{
-    //   return queries.getCourseItembyId(id);
-    // }));
+    console.log(navigation);
+    Promise.all(navigation.navigation.map(assignment=>{
+      console.log('map', assignment);
+      return queries.getCourseItembyId(assignment);
+    }))
+    .then((courseNavigation) => {
+      res.send(courseNavigation);
+    })
+
   })
   .catch(err => {
     res.send(err);
