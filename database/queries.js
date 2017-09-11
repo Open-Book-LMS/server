@@ -7,7 +7,12 @@ module.exports = {
     .join('course', 'course_id', '=', 'course.id')
     .where('enrollment.account_id', id);
   },
-  getCourseNavigationbyId: () => {
-    return monk.course_structure.findOne({course_id: 1});
+  getCourseNavigationbyId: (id) => {
+    let course_structure = monk.get('course_structure');
+    return course_structure.findOne({course_id: id});
+  },
+  getCourseItembyId: (id) => {
+    let assignments = monk.get('assignments');
+    return assignments.findAll({course_id: id});
   }
 }
