@@ -19,6 +19,14 @@ router.get('/:id/navigation', (req, res) => {
   .catch(err => {
     res.send(err);
   })
+});
+
+router.get('/assignment/:id', (req, res) => {
+  let assignId = req.params.id;
+  queries.getCourseItembyId(assignId)
+  .then(assignment => {
+    res.send(assignment);
+  })
 })
 
 
