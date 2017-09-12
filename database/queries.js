@@ -15,5 +15,20 @@ module.exports = {
     console.log(assignmentId);
     let assignments = monk.get('assignments');
     return assignments.findOne({id: Number(assignmentId)});
+  },
+  getGradableAssignments: (courseId) => {
+    let assignments = monk.get('assignments');
+    return assignments.find({course_id: Number(courseId)})
+  },
+  getSubmissionsbyAssignment: (assignmentId) => {
+    let submissions = monk.get('submissions');
+    return submissions.find({assignment_id: Number(assignmentId)});
+  },
+  getStudentsbyCourse: (courseId) => {
+    return knex('account')
+    .join('enrollment', 'account.id', '=', 'account_id')
+    .where('enrollment.course_id', courseId)
+    .andWhere('account.type', 'student')
+    .select('account.id', 'account.email', 'account.first_name', 'account.last_name', 'account.grade', 'account.timezone');
   }
 }

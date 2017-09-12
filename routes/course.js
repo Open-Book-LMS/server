@@ -21,13 +21,48 @@ router.get('/:id/navigation', (req, res) => {
   })
 });
 
-router.get('/assignment/:id', (req, res) => {
-  let assignId = req.params.id;
+router.get('/:courseId/assignment/:assignId', (req, res) => {
+  let assignId = req.params.assignId;
   queries.getCourseItembyId(assignId)
   .then(assignment => {
     res.send(assignment);
   })
+  .catch(err => {
+    res.send(err);
+  })
 })
 
+router.get('/:id/gradebook', (req, res) => {
+  let courseId = req.params.id;
+  queries.getGradableAssignments(courseId)
+  .then(results => {
+    res.send(results.filter(assignment => {
+      console.log(assignment)
+      return assignment.gradebook == true;
+    }))
+  })
+  .catch(err => {
+    res.send(err);
+  })
+})
+
+router.get('/:courseId/assignment/:assignmentId/submissions', (req, res) => {
+  let assignmentId = req.params.assignmentId;
+  queries.getSubmissionsbyAssignment(assignmentId)
+  .then(result => {
+    res.send(result);
+  })
+  .catch(err => {
+    res.send(err);
+  })
+})
+
+router.get('/:courseId/students', (req, res) => {
+  let courseId = req.params.courseId;
+  queries.getStudentsbyCourse(courseId)
+  .then(results => {
+    res.send(results);
+  })
+})
 
 module.exports = router;
