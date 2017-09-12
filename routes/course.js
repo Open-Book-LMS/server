@@ -46,9 +46,9 @@ router.get('/:id/gradebook', (req, res) => {
   })
 })
 
-router.get('/:courseId/assignment/:assignmentId/submissions', (req, res) => {
-  let assignmentId = req.params.assignmentId;
-  queries.getSubmissionsbyAssignment(assignmentId)
+router.get('/:courseId/submissions', (req, res) => {
+  let courseId = req.params.courseId;
+  queries.getSubmissionsbyCourse(courseId)
   .then(result => {
     res.send(result);
   })

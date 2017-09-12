@@ -20,9 +20,9 @@ module.exports = {
     let assignments = monk.get('assignments');
     return assignments.find({course_id: Number(courseId)})
   },
-  getSubmissionsbyAssignment: (assignmentId) => {
+  getSubmissionsbyCourse: (courseId) => {
     let submissions = monk.get('submissions');
-    return submissions.find({assignment_id: Number(assignmentId)});
+    return submissions.find({course_id: Number(courseId)});
   },
   getStudentsbyCourse: (courseId) => {
     return knex('account')
