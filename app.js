@@ -12,6 +12,7 @@ const mongo = require('./database/mongo_setup');
 const auth = require('./auth/auth');
 const dash = require('./routes/dashboard');
 const course = require('./routes/course');
+const assignment = require('./routes/assignment');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -25,6 +26,7 @@ app.use('/mongo', mongo);
 app.use('/auth', auth);
 app.use('/dashboard', dash);
 app.use('/course', course);
+app.use('/assignment', assignment);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

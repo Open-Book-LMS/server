@@ -19,17 +19,6 @@ router.get('/:id/navigation', (req, res) => {
   })
 });
 
-router.get('/:courseId/assignment/:assignId', (req, res) => {
-  let assignId = req.params.assignId;
-  queries.getCourseItembyId(assignId)
-  .then(assignment => {
-    res.send(assignment);
-  })
-  .catch(err => {
-    res.send(err);
-  })
-})
-
 router.get('/:id/gradebook', (req, res) => {
   let courseId = req.params.id;
   queries.getGradableAssignments(courseId)
@@ -64,30 +53,20 @@ router.get('/:courseId/students', (req, res) => {
 })
 
 router.post('/:courseId/assignment', (req, res) => {
-  let courseId = req.params.courseId;
+  let courseId = Number(req.params.courseId);
   let newItem = req.body;
   queries.getToolTypeId(newItem.tool_name)
   .then(tool => {
     newItem.tool_type = tool.id;
     return 'done2'
   })
-  .catch(err => {
-    console.log(err);
-  })
   .then(() => {
     queries.addCourseAssignment(courseId, newItem)
     .then(response => {
       console.log('createAssign', response);
-      queries.addToCourseNavigation(1, response.id)
+      queries.addToCourseNavigation(courseId, response._id)
       res.send(response);
     })
-    .catch(err => {
-      console.log(err);
-    })
-  })
-  .catch(err => {
-    console.log(err);
-  })
 });
-
+});
 module.exports = router;

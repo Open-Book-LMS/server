@@ -13,7 +13,8 @@ module.exports = {
   },
   getCourseItembyId: (assignmentId) => {
     let assignments = monk.get('assignments');
-    return assignments.findOne({id: Number(assignmentId)});
+    console.log('assignId', assignmentId);
+    return assignments.findOne({_id: monk.id(assignmentId)});
   },
   getGradableAssignments: (courseId) => {
     let assignments = monk.get('assignments');
@@ -44,10 +45,12 @@ module.exports = {
     return assignments.insert(assignment);
   },
   addToCourseNavigation: (courseId, assignId) => {
+    console.log('course', courseId, 'assign', assignId);
     let course_structure = monk.get('course_structure');
-    return course_structure.find({course_id: courseId})
-    .then(result => {
-      console.log('coursenav', result);
+    course_structure.findOneAndUpdate({course_id: courseId},{
+        $push:{
+          "navigation":assignId
+        }
     })
   }
 }
