@@ -12,7 +12,6 @@ module.exports = {
     return course_structure.findOne({course_id: Number(id)});
   },
   getCourseItembyId: (assignmentId) => {
-    console.log(assignmentId);
     let assignments = monk.get('assignments');
     return assignments.findOne({id: Number(assignmentId)});
   },
@@ -30,5 +29,25 @@ module.exports = {
     .where('enrollment.course_id', courseId)
     .andWhere('account.type', 'student')
     .select('account.id', 'account.email', 'account.first_name', 'account.last_name', 'account.grade', 'account.timezone');
+  },
+  getHighestAssignmentId: () => {
+    let assignments = monk.get('assignments');
+    return assignments.find({});
+  },
+  getToolTypeId: (tool) => {
+    console.log('query', tool);
+    let tools = monk.get('tools');
+    return tools.findOne({tool_name: tool});
+  },
+  addCourseAssignment: (courseId, assignment) => {
+    let assignments = monk.get('assignments');
+    return assignments.insert(assignment);
+  },
+  addToCourseNavigation: (courseId, assignId) => {
+    let course_structure = monk.get('course_structure');
+    return course_structure.find({course_id: courseId})
+    .then(result => {
+      console.log('coursenav', result);
+    })
   }
 }
