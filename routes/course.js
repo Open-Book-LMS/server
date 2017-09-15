@@ -55,18 +55,17 @@ router.get('/:courseId/students', (req, res) => {
 router.post('/:courseId/assignment', (req, res) => {
   let courseId = Number(req.params.courseId);
   let newItem = req.body;
-  queries.getToolTypeId(newItem.tool_name)
-  .then(tool => {
-    newItem.tool_type = tool.id;
-    return 'done2'
-  })
-  .then(() => {
+  // queries.getToolTypeId(newItem.tool_type)
+  // .then(tool => {
+  //   newItem.tool_type = tool.tool_id;
+  //   return 'done2'
+  // })
+  // .then(() => {
     queries.addCourseAssignment(courseId, newItem)
     .then(response => {
-      console.log('createAssign', response);
       queries.addToCourseNavigation(courseId, response._id)
       res.send(response);
     })
-});
+// });
 });
 module.exports = router;

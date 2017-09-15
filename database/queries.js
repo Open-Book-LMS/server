@@ -35,17 +35,16 @@ module.exports = {
     let assignments = monk.get('assignments');
     return assignments.find({});
   },
-  getToolTypeId: (tool) => {
-    console.log('query', tool);
-    let tools = monk.get('tools');
-    return tools.findOne({tool_name: tool});
-  },
+  // getToolTypeId: (tool) => {
+  //   console.log('query', tool);
+  //   let tools = monk.get('tools');
+  //   return tools.findOne({tool_name: tool});
+  // },
   addCourseAssignment: (courseId, assignment) => {
     let assignments = monk.get('assignments');
     return assignments.insert(assignment);
   },
   addToCourseNavigation: (courseId, assignId) => {
-    console.log('course', courseId, 'assign', assignId);
     let course_structure = monk.get('course_structure');
     course_structure.findOneAndUpdate({course_id: courseId},{
         $push:{
