@@ -51,5 +51,10 @@ module.exports = {
           "navigation":assignId
         }
     })
+  },
+  getUserById: (userId) => {
+    return knex('account')
+    .where('id', userId)
+    .select('account.id', 'account.email', 'account.first_name', 'account.last_name', 'account.grade', 'account.timezone');
   }
 }
