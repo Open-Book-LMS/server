@@ -17,9 +17,20 @@ router.put('/login', (req, res, next) => {
 });
 
 router.get('/user/:id', (req, res) => {
+  let userObj = {}
   queries.getUserById(req.params.id)
   .then((user) => {
-    res.send(user);
+    userObj = user[0]
+    if (userObj.type === 'student'){
+      queries.getSubmissionsbyStudent(userObj.id)
+      .then((submissions) => {
+        console.log(submissions);
+        userObj.submissions = submissions;
+        res.send(userObj);
+      })
+    } else {
+        res.send(userObj);
+    }
   })
 });
 

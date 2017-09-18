@@ -13,4 +13,12 @@ router.get('/:assignId', (req, res) => {
   })
 })
 
+router.post('/:assignId/canvas_save', (req, res) => {
+  let assignId = req.params.assingId;
+  queries.addCanvasRecord(assignId, req.body)
+  .then((response) => {
+    res.send(response);
+  })
+})
+
 module.exports = router;

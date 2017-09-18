@@ -55,6 +55,14 @@ module.exports = {
   getUserById: (userId) => {
     return knex('account')
     .where('id', userId)
-    .select('account.id', 'account.email', 'account.first_name', 'account.last_name', 'account.grade', 'account.timezone');
+    .select('account.id', 'account.email', 'account.first_name', 'account.last_name', 'account.grade', 'account.type', 'account.timezone');
+  },
+  getSubmissionsbyStudent: (userId) => {
+    let submissions = monk.get('submissions');
+    return submissions.find({student_id: userId});
+  },
+  addCanvasRecord: (assignId, canvas) => {
+    let assignments = monk.get('assignments');
+    return assignments.findOneAndUpdate({_id: assignId}, canvas);
   }
 }
