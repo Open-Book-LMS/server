@@ -5,14 +5,20 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
-const app = express();
+const http = require('http');
 
 const mongo = require('./database/mongo_setup');
 const auth = require('./auth/auth');
 const dash = require('./routes/dashboard');
 const course = require('./routes/course');
 const assignment = require('./routes/assignment');
+const sockets = require('./routes/sockets');
+
+
+const app = express();
+
+const server = http.createServer(app);
+const io = require('socket.io')(server);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -22,11 +28,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 
+sockets(io);
+
 app.use('/mongo', mongo);
 app.use('/auth', auth);
 app.use('/dashboard', dash);
 app.use('/course', course);
 app.use('/assignment', assignment);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -42,4 +51,4 @@ app.use(function(err, req, res, next) {
   res.json({message: err.message, error:req.app.get('env') === 'development' ? err : {} });
 });
 
-module.exports = app;
+module.exports = {app, server};
