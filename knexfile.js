@@ -7,10 +7,10 @@ module.exports = {
     connection: 'postgresql://localhost/openbook'
   }
 
-//
-//   production: {
-//     client: 'pg',
-//     connection: process.env.DATABASE_URL
-//   }
-//
+
+  production: {
+    client: 'pg',
+    connection: process.env.DATABASE_URL
+  }
+
 };
