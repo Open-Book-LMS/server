@@ -63,6 +63,6 @@ module.exports = {
   },
   addCanvasRecord: (assignId, canvas) => {
     let assignments = monk.get('assignments');
-    return assignments.findOneAndUpdate({_id: assignId}, canvas);
+    return assignments.findOneAndUpdate({_id: assignId}, {canvas_save: canvas});
   }
 }
