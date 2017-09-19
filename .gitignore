@@ -58,4 +58,3 @@ typings/
 .env
 
 # mongo setup
-mongo_setup.js
