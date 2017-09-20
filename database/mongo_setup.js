@@ -167,12 +167,12 @@ That includes Maung Nyan, a 19-year-old punk rocker, who lives on the building's
         name: 'Portfolio Rubric',
         description: 'This is about your final.',
         data: {
-          article_text: "Circle the number (in pencil) that best shows how well you feel that you completed the criterion (objectives) for the assignment.\
-Criteria 1 – Subject Matter: Student first name was the subject matter of the design (on one side)? Name design was carefully thought out?\
-Criteria 2 – Space: Good usage of Positive and Negative SPACE creating a BALANCED design?  No big empty spaces (negative space)?\
-Criteria 3 – Craftsmanship: Portfolio construction was neat, clean & complete? Followed directions?  Skillful use of the art tools & media?\
-Criteria 4 – Effort:  Took time to develop ideas & complete project? (Didn’t rush.) Good use of class time?\
-Criteria 5 – Work Habits:  Responsible with materials?  Cleaned up and put tools/materials in proper place? Helped table clean up?"
+          article_text: `Circle the number (in pencil) that best shows how well you feel that you completed the criterion (objectives) for the assignment.
+Criteria 1 – Subject Matter: Student first name was the subject matter of the design (on one side)? Name design was carefully thought out?
+Criteria 2 – Space: Good usage of Positive and Negative SPACE creating a BALANCED design?  No big empty spaces (negative space)?
+Criteria 3 – Craftsmanship: Portfolio construction was neat, clean & complete? Followed directions?  Skillful use of the art tools & media?
+Criteria 4 – Effort:  Took time to develop ideas & complete project? (Didn’t rush.) Good use of class time?
+Criteria 5 – Work Habits:  Responsible with materials?  Cleaned up and put tools/materials in proper place? Helped table clean up?`
         },
         course_id: 1,
         tool_type: "ART",
