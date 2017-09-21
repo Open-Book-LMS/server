@@ -12,8 +12,31 @@ router.post('/register', (req, res, next) => {
 });
 
 //Login route for all users
-router.put('/login', (req, res, next) => {
-
+router.post('/login/:userId', (req, res, next) => {
+  let userId = req.params.userId;
+  queries.getUserForLogin(userId)
+  .then(user => {
+    if(user){
+      bcrypt.compare(req.body.password, user.password)
+      .then(result => {
+        if(result){
+          jwt.sign({
+            id:user.id
+          }, process.env.TOKEN_SERCRET, {expiresIn: '8h'}, (err, token) => {
+            res.json({
+              token
+            })
+          })
+        } else {
+          res.status(403)
+          next(new Error('Invalid Password'))
+        }
+      })
+    } else {
+      res.status(403)
+      next(new Error('Invalid User'))
+    }
+  })
 });
 
 router.get('/user/:id', (req, res) => {
