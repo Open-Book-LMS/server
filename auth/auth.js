@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const queries = require('../database/queries');
+const middleware = require('./middleware');
 require('dotenv').config();
 
 
@@ -12,9 +13,9 @@ router.post('/register', (req, res, next) => {
 });
 
 //Login route for all users
-router.post('/login/:userId', (req, res, next) => {
-  let userId = req.params.userId;
-  queries.getUserForLogin(userId)
+router.post('/login', (req, res, next) => {
+  let email = req.body.email;
+  queries.getUserForLogin(email)
   .then(user => {
     if(user){
       bcrypt.compare(req.body.password, user.password)
@@ -22,8 +23,9 @@ router.post('/login/:userId', (req, res, next) => {
         if(result){
           jwt.sign({
             id:user.id
-          }, process.env.TOKEN_SERCRET, {expiresIn: '8h'}, (err, token) => {
+          }, process.env.TOKEN_SECRET, {expiresIn: '8h'}, (err, token) => {
             res.json({
+              id: user.id,
               token
             })
           })
@@ -39,7 +41,7 @@ router.post('/login/:userId', (req, res, next) => {
   })
 });
 
-router.get('/user/:id', (req, res) => {
+router.get('/user/:id', middleware.allowAccess, (req, res) => {
   let userObj = {}
   queries.getUserById(req.params.id)
   .then((user) => {
